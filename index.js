@@ -4,7 +4,14 @@ const dataDisplay = document.getElementById("data-display");
 retrieveDataButton.addEventListener("click", () => {
   const addressField = document.getElementById("address");
   const address = encodeURIComponent(addressField.value.trim());
-  const apiUrl = `https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=10000&receiver=${address}&status=success&order=asc`;
+  const apiCount = `https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`;
+  var txCount=0
+  
+  fetch(apiCount)
+    .then(response=>response.json())
+    .then(data => {txCount=JSON.stringify(data);});
+  
+  const apiUrl = `https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`;
 
   fetch(apiUrl)
     .then(response => response.json())
