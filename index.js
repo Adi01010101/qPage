@@ -5,13 +5,13 @@ retrieveDataButton.addEventListener("click", () => {
   const addressField = document.getElementById("address");
   const address = encodeURIComponent(addressField.value.trim());
   const apiCount = `https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`;
-  var txCount=0;
-  console.log('CC');
+  let txCount='x';
+  console.log('AA');
   console.log(apiCount);
   fetch(apiCount)
     .then(response => response.json())
     .then(data => {
-      txCount = data;
+      txCount = (data);
     })
     .catch(error => {
       txCount = 10000;
