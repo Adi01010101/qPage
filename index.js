@@ -8,8 +8,13 @@ retrieveDataButton.addEventListener("click", () => {
   var txCount=0;
   
   fetch(apiCount)
-    .then(response=>response.json())
-    .then(data => {txCount=JSON.stringify(data);});
+    .then(response => response.json())
+    .then(data => {
+      txCount = JSON.stringify(data);
+    })
+    .catch(error => {
+      dataDisplay.textContent = `Error: ${error}`;
+    });
   console.log(txCount);
   const apiUrl = `https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`;
 console.log(apiUrl);
