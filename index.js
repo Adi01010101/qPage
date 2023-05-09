@@ -4,9 +4,9 @@ const dataDisplay = document.getElementById("data-display");
 retrieveDataButton.addEventListener("click", () => {
   const addressField = document.getElementById("address");
   const address = encodeURIComponent(addressField.value.trim());
-  const apiCount = "https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success";
+  const apiCount = 'https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success';
   var txCount='';
-  console.log('AA')
+  console.log('BB')
   fetch(apiCount)
     .then(response => response.json())
     .then(data => {
