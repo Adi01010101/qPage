@@ -5,8 +5,9 @@ retrieveDataButton.addEventListener("click", () => {
   const addressField = document.getElementById("address");
   const address = encodeURIComponent(addressField.value.trim());
   const apiCount = `https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`;
-  var txCount='';
-  console.log('CC')
+  var txCount=0;
+  console.log('CC');
+  console.log(apiCount);
   fetch(apiCount)
     .then(response => response.json())
     .then(data => {
@@ -17,7 +18,7 @@ retrieveDataButton.addEventListener("click", () => {
     });
   console.log(txCount);
   const apiUrl = `https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`;
-console.log(apiUrl);
+  console.log(apiUrl);
   
   fetch(apiUrl)
     .then(response => response.json())
