@@ -6,14 +6,14 @@ retrieveDataButton.addEventListener("click", () => {
   const address = encodeURIComponent(addressField.value.trim());
   const apiCount = `https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`;
   var txCount='';
-  console.log('AA')
+  console.log('CC')
   fetch(apiCount)
     .then(response => response.json())
     .then(data => {
-      txCount = JSON.stringify(data);
+      txCount = data;
     })
     .catch(error => {
-      dataDisplay.textContent = `Error: ${error}`;
+      txCount = 10000;
     });
   console.log(txCount);
   const apiUrl = `https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`;
