@@ -6,7 +6,7 @@ retrieveDataButton.addEventListener("click", () => {
   const address = encodeURIComponent(addressField.value.trim());
   const apiCount = "https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success";
   var txCount='';
-  
+  console.log('AA')
   fetch(apiCount)
     .then(response => response.json())
     .then(data => {
