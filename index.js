@@ -8,7 +8,7 @@ retrieveDataButton.addEventListener("click", () => {
   let txCount='x';
   console.log('AA');
   console.log(apiCount);
-  fetch(apiCount)
+  await fetch(apiCount)
     .then(response => response.json())
     .then(data => {
       txCount = (data);
