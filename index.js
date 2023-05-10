@@ -9,6 +9,7 @@ retrieveDataButton.addEventListener("click", () => {
     .then(response => response.json())
     .then(countData => {
       const txCount = countData.count;
+      console.log(txCount);
 
       fetch(`https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`)
         .then(response => response.json())
