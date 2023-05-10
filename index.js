@@ -16,7 +16,7 @@ async getcount(address) {
     });
   console.log(txCount);
   return txCount
-}
+};
 
 
 retrieveDataButton.addEventListener("click", () => {
