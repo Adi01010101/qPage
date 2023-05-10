@@ -1,65 +1,40 @@
 const retrieveDataButton = document.getElementById("retrieve-data");
-const dataDisplay = document.getElementById("data-display");
-
-async getcount(address) {
-  const apiCount = `https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`;
-  let txCount='x';
-  console.log('AA');
-  console.log(apiCount);
-  await fetch(apiCount)
-    .then(response => response.json())
-    .then(data => {
-      txCount = (data);
-    })
-    .catch(error => {
-      txCount = 10000;
-    });
-  console.log(txCount);
-  return txCount
-};
-
+const dataDisplay = document.getElementById("data-table").getElementsByTagName('tbody')[0];
 
 retrieveDataButton.addEventListener("click", () => {
   const addressField = document.getElementById("address");
   const address = encodeURIComponent(addressField.value.trim());
-  txCount = getcount(address)
-  const apiUrl = `https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`;
-  console.log(apiUrl);
-  
-  fetch(apiUrl)
+
+  fetch(`https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`)
     .then(response => response.json())
-    .then(data => {
-      const table = document.createElement("table");
+    .then(countData => {
+      const txCount = countData.count;
 
-      // Create table header row
-      const headerRow = table.insertRow();
-      const headerCells = ["TxHash", "Sender", "Receiver", "Amount", "Timestamp"];
-      headerCells.forEach(cellText => {
-        const cell = headerRow.insertCell();
-        cell.textContent = cellText;
-      });
-
-      // Create table data rows
-      data.forEach(transaction => {
-        const row = table.insertRow();
-        const cells = [
-          transaction.txHash,
-          transaction.sender,
-          transaction.receiver,
-          transaction.value,
-          transaction.timestamp
-        ];
-        cells.forEach(cellText => {
-          const cell = row.insertCell();
-          cell.textContent = cellText;
+      fetch(`https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`)
+        .then(response => response.json())
+        .then(data => {
+          dataDisplay.innerHTML = '';
+          data.forEach(item => {
+            const row = dataDisplay.insertRow();
+            row.insertCell().textContent = item.txHash;
+            row.insertCell().textContent = item.gasLimit;
+            row.insertCell().textContent = item.gasPrice;
+            row.insertCell().textContent = item.gasUsed;
+            row.insertCell().textContent = item.miniBlockHash;
+            row.insertCell().textContent = item.nonce;
+            row.insertCell().textContent = item.receiver;
+            row.insertCell().textContent = item.sender;
+            row.insertCell().textContent = item.status;
+            row.insertCell().textContent = item.value;
+            row.insertCell().textContent = item.fee;
+            row.insertCell().textContent = new Date(item.timestamp * 1000).toLocaleString();
+          });
+        })
+        .catch(error => {
+          dataDisplay.innerHTML = `<tr><td colspan="12">Error: ${error}</td></tr>`;
         });
-      });
-
-      // Display table
-      dataDisplay.innerHTML = "";
-      dataDisplay.appendChild(table);
     })
     .catch(error => {
-      dataDisplay.textContent = `Error: ${error}`;
+      dataDisplay.innerHTML = `<tr><td colspan="12">Error: ${error}</td></tr>`;
     });
 });
