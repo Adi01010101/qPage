@@ -5,13 +5,13 @@ retrieveDataButton.addEventListener("click", () => {
   const addressField = document.getElementById("address");
   const address = encodeURIComponent(addressField.value.trim());
 
-  fetch(`https://api.multiversx.com/tokens/QWT-46ac01/transfers/count?receiver=${address}&status=success`)
+  fetch(`https://api.multiversx.com/accounts/${address}/transfers/count?token=QWT-46ac01&status=success`)
     .then(response => response.json())
     .then(countData => {
       const txCount = countData;
       console.log('C:'+txCount);
 
-      fetch(`https://api.multiversx.com/tokens/QWT-46ac01/transfers?size=${txCount}&receiver=${address}&status=success&order=asc`)
+      fetch(`https://api.multiversx.com/accounts/${address}/transfers?size=${txCount}&token=QWT-46ac01&status=success`)
         .then(response => response.json())
         .then(data => {
           dataDisplay.innerHTML = '';
