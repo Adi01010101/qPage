@@ -17,6 +17,7 @@ retrieveDataButton.addEventListener("click", () => {
           dataDisplay.innerHTML = '';
           data.forEach(item => {
             const row = dataDisplay.insertRow();
+            row.insertCell().textContent = new Date(item.timestamp * 1000).toLocaleString();
             row.insertCell().textContent = item.txHash;
             row.insertCell().textContent = item.gasLimit;
             row.insertCell().textContent = item.gasPrice;
@@ -28,7 +29,7 @@ retrieveDataButton.addEventListener("click", () => {
             row.insertCell().textContent = item.status;
             row.insertCell().textContent = item.value;
             row.insertCell().textContent = item.fee;
-            row.insertCell().textContent = new Date(item.timestamp * 1000).toLocaleString();
+            row.insertCell().textContent = item.senderAssets;
           });
         })
         .catch(error => {
