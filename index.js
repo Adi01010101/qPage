@@ -9,7 +9,7 @@ const namedAddress = {
   'erd1hmfwpvsqn8ktzw3dqd0ltpcyfyasgv8mr9w0qecnmpexyp280y8q47ca9d':'JEXchange: P2P swaps module',
   'erd1qqqqqqqqqqqqqpgqawkm2tlyyz6vtg02fcr5w02dyejp8yrw0y8qlucnj2':'JEXchange: P2P swaps module (deprecated)',
   'erd1qqqqqqqqqqqqqpgqr8z5hkwek0pmytcvla86qjusn4hkufjlrp8s7hhkjk':'EsdtMarket: P2P swaps module',
-  'erd1kpc8u0fzxj20vgnjcqem8p6fm46jq5t74esfepy42j22g3cy9hgqawhqyh':'QoWatt Treasury'
+  'erd1kpc8u0fzxj20vgnjcqem8p6fm46jq5t74esfepy42j22g3cy9hgqawhqyh':'QoWatt Treasury',
   'erd1qqqqqqqqqqqqqpgq7dcgyej6vr8ex6u545kq58yh3nsa3t8c83gqu7aj3c':'Presale 1&2',
   'erd1qqqqqqqqqqqqqpgqexdsysjydm4v76xja4jalyp5fz5vms2z83gq9d9q0v':'Presale 3&4',
   'erd1qqqqqqqqqqqqqpgqmwwgn45jqqr5g3m5ydm8cccxynfx0r7x83gqxhhxga':'Presale 5',
@@ -18,6 +18,14 @@ const namedAddress = {
   'erd1n6uyqy045djhd8u5vf2ldcfz9q9ap237zp6upjtzg0ys2yqvyawqlk2yst':'FrameIt'
 };
 
+function getNamefromAddress(adr) {
+  if (namedAddress[adr]===undefined) {
+    return adr;
+  }
+  else {
+    return namedAddress[adr];
+  }
+}
 
 const retrieveDataButton = document.getElementById("retrieve-data");
 const dataDisplay = document.getElementById("data-table").getElementsByTagName('tbody')[0];
@@ -46,8 +54,8 @@ retrieveDataButton.addEventListener("click", () => {
             row.insertCell().textContent = item.gasUsed;
             row.insertCell().textContent = item.miniBlockHash;
             row.insertCell().textContent = item.nonce;
-            row.insertCell().textContent = item.receiver;
-            row.insertCell().textContent = item.sender;
+            row.insertCell().textContent = getNamefromAddress(item.receiver);
+            row.insertCell().textContent = getNamefromAddress(item.sender);
             row.insertCell().textContent = item.status;
             row.insertCell().textContent = item.value;
             row.insertCell().textContent = item.fee;
